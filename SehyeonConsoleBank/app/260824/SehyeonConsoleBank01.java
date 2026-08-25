@@ -3,13 +3,15 @@ package app;
 import java.util.Scanner;
 
 import account.Account;
+import account.AccountDao;
 import account.AccountMemDao;
 
 public class SehyeonConsoleBank01 {
 	
 	static String[] startMenu = {"0.종료", "1.계좌등록", "2.계좌조회", "3.입금", "4.출금"};
+	static String[] listMenu = {"0.종료", "1.일괄조회", "2.번호조회", "3.소유주조회"};
 	static Scanner sc = new Scanner(System.in);
-	static AccountMemDao accountDao = new AccountMemDao();
+	static AccountDao accountDao = new AccountMemDao();
 	
 	public static void main(String[] args) {
 		welcomeMessage();
@@ -62,8 +64,36 @@ public class SehyeonConsoleBank01 {
 
 	private static void menuAccountList() {
 		System.out.println("[계좌 조회]");
-		Account[] accountList = accountDao.selectAll();
-		showAccountList();
+		while(true) {
+			int menu = getMenu(listMenu);
+			
+			switch(menu) {
+			case 1:	//	일괄 조회
+				showAccountList();
+				return;
+				
+			case 2: //	번호 조회
+				System.out.print("계좌번호 : ");
+				int accountNo = sc.nextInt();
+				sc.nextLine();
+				
+				Account account = accountDao.selectByNo(accountNo);
+				System.out.println(account);
+				return;
+				
+			case 3:	//	소유주 조회
+				System.out.print("소유주 : ");
+				String owner = sc.nextLine();
+				
+				return;
+				
+			case 0:
+				return;
+				
+			default:
+				System.out.println("없는 메뉴입니다.");
+			}
+		}
 	}
 
 	private static void showAccountList() {
