@@ -85,6 +85,10 @@ public class SehyeonConsoleBank01 {
 				System.out.print("소유주 : ");
 				String owner = sc.nextLine();
 				
+				Account[] accountList = accountDao.selectByOwner(owner);
+				
+				System.out.println(accountList[0]);
+				
 				return;
 				
 			case 0:
