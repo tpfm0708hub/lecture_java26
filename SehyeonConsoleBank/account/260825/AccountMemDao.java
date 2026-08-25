@@ -60,8 +60,13 @@ public class AccountMemDao implements AccountDao {
 
 	@Override
 	public Account[] selectByOwner(String owner) {
-
-		
+		for(int i = 0; i < numAccount; i++) {
+			if(owner.equals(accountDB[i].getOwner())) { // ==: 주소값 비교, .equals(): 객체 내용 비교
+				Account[]accountList = new Account[5];	//	계좌를 담을 list 생성
+				accountList[0] = accountDB[i];			//	찾은 계좌를 첫 번째 칸에 입력
+				return accountList;
+			}
+		}
 		return null;
 	}
 }
